@@ -1,7 +1,7 @@
 # Common tasks. `make help` lists them. Requires uv (https://docs.astral.sh/uv/).
 # managed-by: vgi-starters (language section below is python-specific)
 
-HAYBARN_VERSION ?= 2.0.0rc11
+HAYBARN_VERSION ?= 2.0.1rc3
 # vgi-lint is deliberately not pinned: the gate tracks the current quality bar.
 VGI_LINT        := uvx --prerelease=allow --from 'vgi-lint-check>=2,<3' vgi-lint lint
 LINT_ARGS       ?=
@@ -39,7 +39,7 @@ lint: build ## Static checks: ruff, mypy, pydoclint
 	uv run ruff format --check src tests test examples examples
 	uv run ruff check src tests test examples examples
 	uv run mypy
-	uvx pydoclint --config=pyproject.toml src
+	uvx --python 3.14 pydoclint --config=pyproject.toml src
 
 test-unit: build ## Unit tests (pytest)
 	uv run pytest -q
